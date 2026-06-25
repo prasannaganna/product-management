@@ -3,6 +3,7 @@ package com.st.productmanagement.controller;
 import com.st.productmanagement.dtos.RequestDto;
 import com.st.productmanagement.dtos.ResponseDto;
 import com.st.productmanagement.service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +13,7 @@ public class ProductController {
     @Autowired
     private ProductService productService;
     @PostMapping
-    public ResponseDto save(@RequestBody RequestDto requestDto){
+    public ResponseDto save(@Valid @RequestBody RequestDto requestDto){
         return  productService.save(requestDto);
     }
     @GetMapping("/{id}")
