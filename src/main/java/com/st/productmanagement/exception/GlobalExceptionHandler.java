@@ -2,6 +2,7 @@ package com.st.productmanagement.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -21,6 +22,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ProductAlreadyExistException.class)
     public ResponseEntity<String> handlerProductAlreadyExistException(ProductAlreadyExistException productAlreadyExistException){
         return  new ResponseEntity<>(productAlreadyExistException.getMessage(),HttpStatus.CONFLICT);
+    }
+    public ResponseEntity<String> handleUserNotFoundException(UserNotFoundException userNotFoundException){
+        return  new ResponseEntity<>(userNotFoundException.getMessage(), HttpStatus.NOT_FOUND);
+    }
+    public ResponseEntity<String> handleInvalidCredentials(InvalidCredentialsException invalidCredentialsException){
+        return  new ResponseEntity<>(invalidCredentialsException.getMessage(), HttpStatus.UNAUTHORIZED);
+    }
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<String> handleAuthenticationException(AuthenticationException e) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
     }
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>>

@@ -1,6 +1,6 @@
 package com.st.productmanagement.dtos;
 
-import com.st.productmanagement.ProductEnums;
+import com.st.productmanagement.enums.ProductEnums;
 import lombok.Data;
 
 @Data
@@ -11,4 +11,5 @@ public class ResponseDto {
     private String brand;
     private String  category;
     private ProductEnums  status;
+    private Long user_id;
 }

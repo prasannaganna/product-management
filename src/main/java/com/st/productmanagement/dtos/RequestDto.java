@@ -23,4 +23,7 @@ public class RequestDto {
     @NotBlank
     @Size(min = 3, max = 20)
     private String category;
+    @NotBlank
+    @Positive
+    private Long user_id;
 }

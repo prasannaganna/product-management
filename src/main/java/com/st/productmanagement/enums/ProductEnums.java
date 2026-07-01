@@ -1,4 +1,4 @@
-package com.st.productmanagement;
+package com.st.productmanagement.enums;
 
     public enum ProductEnums {
     AVAILABLE,

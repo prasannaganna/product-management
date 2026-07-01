@@ -1,6 +1,6 @@
 package com.st.productmanagement.entity;
 
-import com.st.productmanagement.ProductEnums;
+import com.st.productmanagement.enums.ProductEnums;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -24,5 +24,8 @@ public class Product {
     @Enumerated(EnumType.STRING)
      private ProductEnums status;
      private LocalDateTime createdDate;
+     @ManyToOne
+     @JoinColumn(name = "user_id")
+      private User user;
 
 }

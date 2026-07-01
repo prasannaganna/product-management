@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: spring-security
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/product_db
+    username: root
+    password: Root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql:
+        dialect: org.hibernate.dialect.MySQLDialect
+jwt:
+  validity:
+    accessToken: 86400000
+    refreshToken: 2592000000
+  secret: jwt-secret-code
+server:
+  port: 8080
+
+
+kind: Application

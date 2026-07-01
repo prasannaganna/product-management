@@ -1,12 +1,14 @@
 package com.st.productmanagement.service;
 
-import com.st.productmanagement.ProductEnums;
+import com.st.productmanagement.entity.User;
+import com.st.productmanagement.enums.ProductEnums;
 import com.st.productmanagement.dtos.RequestDto;
 import com.st.productmanagement.dtos.ResponseDto;
 import com.st.productmanagement.entity.Product;
 import com.st.productmanagement.exception.ProductAlreadyExistException;
 import com.st.productmanagement.exception.ProductNotFoundException;
 import com.st.productmanagement.repository.ProductRepository;
+import com.st.productmanagement.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,7 @@ import java.util.Optional;
 public class ProductService {
     @Autowired
     private ProductRepository productRepository;
+    private UserRepository userRepository;
 
     public ResponseDto save(RequestDto requestDto) {
 
@@ -27,6 +30,8 @@ public class ProductService {
             throw new ProductAlreadyExistException("Product already exists");
         }
         //mapping the dtos into object
+
+
         Product product = new Product();
         product.setName(requestDto.getName());
         product.setBrand(requestDto.getBrand());
@@ -35,6 +40,10 @@ public class ProductService {
         product.setCategory(requestDto.getCategory());
         product.setStatus(ProductEnums.AVAILABLE);
         product.setCreatedDate(LocalDateTime.now());
+        long user_id = requestDto.getUser_id();
+         User user =userRepository.findBYId(user_id);
+        product.setUser(user);
+
         // save the object
         productRepository.save(product);
         // mapping the object to dtos sending the response
@@ -45,6 +54,7 @@ public class ProductService {
         responseDto.setQuantity(product.getQuantity());
         responseDto.setPrice(product.getPrice());
         responseDto.setStatus(product.getStatus());
+        responseDto.setUser_id(product.getUser().getId());
         return responseDto;
     }
     public ResponseDto getProductById(Long id) {
@@ -53,12 +63,12 @@ public class ProductService {
                 .orElseThrow(() -> new ProductNotFoundException("product not found exception"));
         ResponseDto responseDto = new ResponseDto();
         responseDto.setName(product.getName());
-        responseDto.
-setBrand(product.getBrand());
+        responseDto.setBrand(product.getBrand());
        responseDto.setPrice(product.getPrice());
        responseDto.setCategory(product.getCategory());
        responseDto.setQuantity(product.getQuantity());
        responseDto.setStatus(product.getStatus());
+       responseDto.setUser_id(product.getUser().getId());
         return  responseDto;
     }
 }
