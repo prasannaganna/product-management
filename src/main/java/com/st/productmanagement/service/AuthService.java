@@ -21,6 +21,7 @@ public class AuthService {
     private final UserRepository userRepository;
      public UserResponseDto saveUser(SignUpRequestDto ur){
 
+
          User user = new User();
          user.setName(ur.getName());
          user.setRole(ur.getRole());
@@ -35,6 +36,7 @@ public class AuthService {
      }
       public AuthResponseDto login(LoginRequestDto dto){
           User user = userRepository.findByEmail(dto.getEmail());
+
 
           if(user == null){
               throw new UserNotFoundException("User not found");

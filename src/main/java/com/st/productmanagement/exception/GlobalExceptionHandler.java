@@ -23,10 +23,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handlerProductAlreadyExistException(ProductAlreadyExistException productAlreadyExistException){
         return  new ResponseEntity<>(productAlreadyExistException.getMessage(),HttpStatus.CONFLICT);
     }
+    @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<String> handleUserNotFoundException(UserNotFoundException userNotFoundException){
         return  new ResponseEntity<>(userNotFoundException.getMessage(), HttpStatus.NOT_FOUND);
     }
-    public ResponseEntity<String> handleInvalidCredentials(InvalidCredentialsException invalidCredentialsException){
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ResponseEntity<String> handleInvalidCredentialsException(InvalidCredentialsException invalidCredentialsException){
         return  new ResponseEntity<>(invalidCredentialsException.getMessage(), HttpStatus.UNAUTHORIZED);
     }
     @ExceptionHandler(AuthenticationException.class)

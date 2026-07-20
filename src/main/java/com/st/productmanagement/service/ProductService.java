@@ -7,6 +7,7 @@ import com.st.productmanagement.dtos.ResponseDto;
 import com.st.productmanagement.entity.Product;
 import com.st.productmanagement.exception.ProductAlreadyExistException;
 import com.st.productmanagement.exception.ProductNotFoundException;
+import com.st.productmanagement.exception.UserNotFoundException;
 import com.st.productmanagement.repository.ProductRepository;
 import com.st.productmanagement.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import java.util.Optional;
 public class ProductService {
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
     private UserRepository userRepository;
 
     public ResponseDto save(RequestDto requestDto) {
@@ -31,7 +33,9 @@ public class ProductService {
         }
         //mapping the dtos into object
 
-
+        long user_id = requestDto.getUser_id();
+        User user = userRepository.findById(user_id)
+                .orElseThrow( () ->new UserNotFoundException("user not found"));
         Product product = new Product();
         product.setName(requestDto.getName());
         product.setBrand(requestDto.getBrand());
@@ -40,8 +44,6 @@ public class ProductService {
         product.setCategory(requestDto.getCategory());
         product.setStatus(ProductEnums.AVAILABLE);
         product.setCreatedDate(LocalDateTime.now());
-        long user_id = requestDto.getUser_id();
-         User user =userRepository.findBYId(user_id);
         product.setUser(user);
 
         // save the object

@@ -7,13 +7,12 @@ import com.st.productmanagement.dtos.UserResponseDto;
 import com.st.productmanagement.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.lang.model.util.Elements;
+@CrossOrigin(origins="*")
 @RestController
-@RequestMapping("/Auth")
+@RequestMapping("/auth")
 public class AuthController {
     @Autowired
     private AuthService authService;
